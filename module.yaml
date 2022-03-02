@@ -1,0 +1,36 @@
+name: ibm-kms-key
+alias: kms-key
+type: terraform
+description: Module to lookup or create a KMS key
+tags:
+    - kms
+    - key
+versions:
+- platforms: []
+  providers:
+    - name: ibm
+      source: "ibm-cloud/ibm"
+  dependencies:
+    - id: kms
+      refs:
+        - source: github.com/ibm-garage-cloud/terraform-ibm-key-protect
+          version: ">= 1.0.0"
+        - source: github.com/ibm-garage-cloud/terraform-ibm-hpcs
+          version: ">= 1.0.0"
+        - source: github.com/ibm-garage-cloud/terraform-ibm-kms
+          version: ">= 0.0.0"
+  variables:
+    - name: kms_id
+      moduleRef:
+        id: kms
+        output: guid
+    - name: kms_public_url
+      moduleRef:
+        id: kms
+        output: public_url
+    - name: kms_private_url
+      moduleRef:
+        id: kms
+        output: private_url
+    - name: name_prefix
+      scope: global
